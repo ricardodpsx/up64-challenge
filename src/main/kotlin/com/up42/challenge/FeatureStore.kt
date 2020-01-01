@@ -8,9 +8,9 @@ import java.util.UUID
 
 @Component
 class FeatureStore {
-  private val byId by lazy { listOfFeatures().associateBy({ it.id }, { it }) }
+  private val byId by lazy { list().associateBy({ it.id }, { it }) }
 
-  fun loadFeature(id: UUID) = byId[id]
+  fun find(id: UUID) = byId[id]
 
   private fun fromJsonNode(node: JsonNode) =
     Feature(
@@ -18,10 +18,11 @@ class FeatureStore {
       timestamp = node.at("/properties/timestamp").asLong(),
       beginViewingDate = node.at("/properties/acquisition/beginViewingDate").asLong(),
       endViewingDate = node.at("/properties/acquisition/endViewingDate").asLong(),
-      missionName = node.at("/properties/acquisition/missionName").asText()
+      missionName = node.at("/properties/acquisition/missionName").asText(),
+      quicklook = node.at("/properties/quicklook").asText()
     )
 
-  fun listOfFeatures() = loadJson().map { it["features"] }.flatten().map(::fromJsonNode)
+  fun list() = loadJson().map { it["features"] }.flatten().map(::fromJsonNode)
 
   private fun loadJson() = ObjectMapper()
     .readTree(ResourceUtils.getFile("classpath:source-data.json"))

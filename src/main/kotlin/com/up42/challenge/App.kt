@@ -7,8 +7,8 @@ import org.springframework.boot.runApplication
 
 
 @SpringBootApplication
-class CodeLensApp
+class App
 
 fun main(args: Array<String>) {
-  runApplication<CodeLensApp>(*args)
+  runApplication<App>(*args)
 }
