@@ -1,6 +1,6 @@
-package com.up42.challenge
+package com.up42.challenge.web
 
-import mu.KotlinLogging
+import com.up42.challenge.store.FeatureStore
 import org.apache.tomcat.util.codec.binary.Base64
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -12,7 +12,6 @@ import java.util.UUID
 
 @RestController
 class FeatureController(@Autowired val featureStore: FeatureStore) {
-  private val logger = KotlinLogging.logger {}
 
   @GetMapping("/features")
   @ResponseBody
@@ -25,5 +24,5 @@ class FeatureController(@Autowired val featureStore: FeatureStore) {
   @GetMapping("/features/{id}/quicklook", produces = [MediaType.IMAGE_PNG_VALUE])
   @ResponseBody
   fun featureQuickLook(@PathVariable id: String): ByteArray =
-    Base64.decodeBase64(featureStore.find(UUID.fromString(id))!!.quicklook)
+    Base64.decodeBase64(featureStore.find(UUID.fromString(id)).quicklook)
 }

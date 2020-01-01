@@ -1,5 +1,6 @@
 package com.up42.challenge
 
+import com.up42.challenge.entity.Feature
 import java.util.UUID
 
 val featureFixture = Feature(

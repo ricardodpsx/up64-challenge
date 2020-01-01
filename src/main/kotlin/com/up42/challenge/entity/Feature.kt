@@ -1,4 +1,4 @@
-package com.up42.challenge
+package com.up42.challenge.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import java.util.UUID
